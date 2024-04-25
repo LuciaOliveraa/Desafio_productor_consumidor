@@ -13,6 +13,6 @@ class Productor implements Runnable {
     {
         for (int i = 0; i < 5; i++)
             // producer put items
-            buffer.put(i);
+            buffer.putItem(i);
     }
 }

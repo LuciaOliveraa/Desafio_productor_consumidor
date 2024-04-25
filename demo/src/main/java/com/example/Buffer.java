@@ -1,57 +1,56 @@
 package com.example;
 
+import java.util.ArrayList;
+import java.util.Queue;
+import java.util.Stack;
 import java.util.concurrent.Semaphore;
 
-public class Buffer {
-   // an item
-   int item;
+public class Buffer implements IBuffer {
+
+    private ArrayList buffer1;
+    // an item
+    private int item;
+
+    public Buffer(int capacidad) {
+        this.buffer1 = new ArrayList<>(capacidad);
+        
+    }
   
-   // semCon initialized with 0 permits
-   // to ensure put() executes first
-   static Semaphore semCon = new Semaphore(0);
+    // Inicializamos semConsumer en 0 para asegurarnos de que se produzca un elemento antes de que se intente consumir.
+    static Semaphore semConsumer = new Semaphore(0);
+    static Semaphore semProductor = new Semaphore(1);
+    static Semaphore semFullVoid = new Semaphore(0);
  
-   static Semaphore semProd = new Semaphore(1);
+
+    public void getItem()
+    {
+        try {
+            semConsumer.acquire();
+        }
+        catch (InterruptedException e) {
+            System.out.println("InterruptedException caught");
+        }
+
+        System.out.println("Consumer consumed item : " + item);
  
-   // to get an item from buffer
-   void get()
-   {
-       try {
-           // Before consumer can consume an item,
-           // it must acquire a permit from semCon
-           semCon.acquire();
-       }
-       catch (InterruptedException e) {
-           System.out.println("InterruptedException caught");
-       }
+        semProductor.release();
+    }
  
-       // consumer consuming an item
-       System.out.println("Consumer consumed item : " + item);
+
+    public void putItem(int item)
+    {
+        try {
+            semProductor.acquire();
+        }
+        catch (InterruptedException e) {
+            System.out.println("InterruptedException caught");
+        }
+
+        this.item = item;
  
-       // After consumer consumes the item,
-       // it releases semProd to notify producer
-       semProd.release();
-   }
+        System.out.println("Producer produced item : " + item);
  
-   // to put an item in buffer
-   void put(int item)
-   {
-       try {
-           // Before producer can produce an item,
-           // it must acquire a permit from semProd
-           semProd.acquire();
-       }
-       catch (InterruptedException e) {
-           System.out.println("InterruptedException caught");
-       }
- 
-       // producer producing an item
-       this.item = item;
- 
-       System.out.println("Producer produced item : " + item);
- 
-       // After producer produces the item,
-       // it releases semCon to notify consumer
-       semCon.release();
-   }
+        semConsumer.release();
+    }
 }
  
