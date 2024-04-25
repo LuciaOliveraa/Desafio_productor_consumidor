@@ -4,9 +4,8 @@ import java.util.concurrent.Semaphore;
 
 public interface IBuffer {
    
-  
-   void getItem();
- 
-   void putItem(int item);
+   public void produceItem(int item) throws InterruptedException;
+
+  public void consumeItem() throws InterruptedException;
 }
  
