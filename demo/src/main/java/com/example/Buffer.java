@@ -2,7 +2,7 @@ package com.example;
 
 import java.util.concurrent.Semaphore;
 
-public class Buffer implements IBuffer {
+public class Buffer {
 
     private int[] buffer;
     private static int size;
@@ -32,7 +32,7 @@ public class Buffer implements IBuffer {
         semConsumer.release();
     }
 
-    public void consumeItem() throws InterruptedException {
+    public int consumeItem() throws InterruptedException {
         semConsumer.acquire();
         semMutex.acquire();
         int item = buffer[outItem];
@@ -40,6 +40,7 @@ public class Buffer implements IBuffer {
 
         semMutex.release();
         semProducer.release();
+        return item;
     }
 
     /*
