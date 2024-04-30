@@ -3,9 +3,9 @@ package com.example;
 
 import java.util.concurrent.Semaphore;
 
-public final class Buffer {
+public final class Buffer2 {
 
-    private static Buffer instance;
+    private static Buffer2 instance;
 
     private int[] buffer;
     private static int size;
@@ -16,7 +16,7 @@ public final class Buffer {
     private Semaphore semProducer;
     private Semaphore semMutex;
     
-    private Buffer() {
+    private Buffer2() {
         // The following code emulates slow initialization.
         try {
             Thread.sleep(1000);
@@ -29,15 +29,14 @@ public final class Buffer {
 
         this.inItem = 0;
         this.outItem = 0;
-
         this.semConsumer = new Semaphore(0);
         this.semProducer = new Semaphore(size);
         this.semMutex = new Semaphore(1);
     }
 
-    public static Buffer getInstance() {
+    public static Buffer2 getInstance() {
         if (instance == null) {
-            instance = new Buffer();
+            instance = new Buffer2();
         }
         return instance;
     }
