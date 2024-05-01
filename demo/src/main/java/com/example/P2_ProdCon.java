@@ -12,10 +12,10 @@ public class P2_ProdCon extends Thread {
             try {
                 int item = Buffer.getInstance().consumeItem();
                 System.out.println("Consumed P2: " + item);
-                item = item^2;
+                item = item*item;
                 Buffer.getInstance().produceItem(item);
                 System.out.println("Produced P2: " + item);
-                Thread.sleep(100); // Simula la producción
+                Thread.sleep(1000); // Simula la producción
                 
             } catch (InterruptedException e) {
                 e.printStackTrace();

@@ -8,7 +8,7 @@ public final class Buffer {
     private static Buffer instance;
 
     private int[] buffer;
-    private static int size;
+    private static final int size = 30;
     private int inItem;
     private int outItem;
 
@@ -18,13 +18,12 @@ public final class Buffer {
     
     private Buffer() {
         // The following code emulates slow initialization.
-        try {
+        /*try {
             Thread.sleep(1000);
         } catch (InterruptedException ex) {
             ex.printStackTrace();
-        }
+        }*/
 
-        this.size = 30;
         this.buffer = new int[size];
 
         this.inItem = 0;
@@ -35,7 +34,7 @@ public final class Buffer {
         this.semMutex = new Semaphore(1);
     }
 
-    public static Buffer getInstance() {
+    public static synchronized Buffer getInstance() {
         if (instance == null) {
             instance = new Buffer();
         }
