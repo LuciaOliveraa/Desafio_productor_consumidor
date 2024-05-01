@@ -17,13 +17,6 @@ public final class Buffer {
     private Semaphore semMutex;
     
     private Buffer() {
-        // The following code emulates slow initialization.
-        /*try {
-            Thread.sleep(1000);
-        } catch (InterruptedException ex) {
-            ex.printStackTrace();
-        }*/
-
         this.buffer = new int[size];
 
         this.inItem = 0;
@@ -40,11 +33,6 @@ public final class Buffer {
         }
         return instance;
     }
-  
-    // Inicializamos semConsumer en 0 para asegurarnos de que se produzca un elemento antes de que se intente consumir.
-    //static Semaphore semConsumer = new Semaphore(0);
-    //static Semaphore semProducer = new Semaphore(size);
-    //static Semaphore semMutex = new Semaphore(1);
  
     public void produceItem(int item) throws InterruptedException {
         semProducer.acquire();
@@ -66,37 +54,5 @@ public final class Buffer {
         semProducer.release();
         return item;
     }
-
-    /*
-    public void getItem()
-    {
-        try {
-            semConsumer.acquire();
-        }
-        catch (InterruptedException e) {
-            System.out.println("InterruptedException caught");
-        }
-
-        System.out.println("Consumer consumed item : " + item);
- 
-        semProducer.release();
-    }
- 
-
-    public void putItem(int item)
-    {
-        try {
-            semProducer.acquire();
-        }
-        catch (InterruptedException e) {
-            System.out.println("InterruptedException caught");
-        }
-
-        this.item = item;
- 
-        System.out.println("Producer produced item : " + item);
- 
-        semConsumer.release();
-    }*/
 }
  

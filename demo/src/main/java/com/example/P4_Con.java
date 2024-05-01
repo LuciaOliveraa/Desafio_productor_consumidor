@@ -1,11 +1,8 @@
 package com.example;
 
 public class P4_Con extends Thread {
-    //Buffer2 buffer2;
-
-    public P4_Con(){//(Buffer2 buffer) {
-        //this.buffer2 = buffer;
-    }
+    
+    public P4_Con(){}
 
     public void run() {
         while(true) {

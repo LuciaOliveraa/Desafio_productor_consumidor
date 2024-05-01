@@ -3,12 +3,8 @@ package com.example;
 import java.util.Random;
 
 class P1_Prod extends Thread {
-    //Buffer buffer;
 
-    public P1_Prod(){// (Buffer buffer) {
-        //this.buffer = buffer;
-        //new Thread(this, "Producer").start();
-    }
+    public P1_Prod(){}
   
     public void run()
     {

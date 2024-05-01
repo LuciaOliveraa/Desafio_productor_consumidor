@@ -1,11 +1,8 @@
 package com.example;
 
 public class P2_ProdCon extends Thread {
-    //Buffer buffer;
 
-    public P2_ProdCon(){//(Buffer buffer) {
-       // this.buffer = buffer;
-    }
+    public P2_ProdCon(){}
 
     public void run() {
         while(true) {
