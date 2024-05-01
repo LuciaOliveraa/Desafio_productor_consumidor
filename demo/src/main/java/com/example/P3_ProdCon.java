@@ -2,7 +2,7 @@
 package com.example;
 
 public class P3_ProdCon extends Thread {
-    
+
     public P3_ProdCon() {}
 
     public void run() {
